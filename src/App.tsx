@@ -18,7 +18,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <BrowserRouter>
+      <BrowserRouter basename="/notion-clone-client/">
         <Routes>
           <Route path="/" element={<AuthLayout />}>
             <Route path="login" element={<Login />} />
