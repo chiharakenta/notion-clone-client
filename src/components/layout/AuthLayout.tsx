@@ -26,8 +26,8 @@ export const AuthLayout = () => {
           <img src={notionLogo} alt="" css={styles.img} />
           Notionクローン開発
         </Box>
+        <Outlet />
       </Container>
-      <Outlet />
     </div>
   );
 };
