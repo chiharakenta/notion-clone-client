@@ -3,7 +3,7 @@ import { UserType } from './user.type';
 export type ErrorMessage = {
   value: string;
   msg: string;
-  param: string;
+  param: 'username' | 'password' | 'confirmPassword';
   location: string;
 };
 

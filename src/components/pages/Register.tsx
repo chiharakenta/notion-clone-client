@@ -3,32 +3,66 @@ import { LoadingButton } from '@mui/lab';
 import { Link } from 'react-router-dom';
 import { FormEventHandler, useState } from 'react';
 import { authApi } from '../../api/authApi';
-import { isAxiosError } from 'axios';
 import { RegisterApi } from '../../types/api.type';
 
 export const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [usernameErrorText, setUsernameErrorText] = useState('');
+  const [passwordErrorText, setPasswordErrorText] = useState('');
+  const [confirmErrorText, setConfirmErrorText] = useState('');
+
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
+    setUsernameErrorText('');
+    setPasswordErrorText('');
+    setConfirmErrorText('');
+
+    // バリデーションチェック
+    let hasError = false;
+    if (username === '') {
+      hasError = true;
+      setUsernameErrorText('名前を入力してください。');
+    }
+    if (password === '') {
+      hasError = true;
+      setPasswordErrorText('パスワードを入力してください。');
+    }
+    if (confirmPassword === '') {
+      hasError = true;
+      setConfirmErrorText('確認用パスワードを入力してください。');
+    }
+    if (password !== confirmPassword) {
+      hasError = true;
+      setConfirmErrorText('パスワードと確認用パスワードが異なります。');
+    }
+    if (hasError) return;
+
     // 新規登録APIを叩く
+    setLoading(true);
     authApi
       .register({ username, password, confirmPassword })
       .then((res) => {
         // Memo: ローカルストレージへのトークン保存は脆弱性があるので、要修正
         console.log('新規登録に成功しました。');
         localStorage.setItem('token', res.data.token);
+        setLoading(false);
       })
       .catch((error: RegisterApi.Response.Error) => {
-        const errorMessages = error.data.errors;
-        console.log(errorMessages);
+        error.data.errors.forEach((error) => {
+          if (error.param === 'username') setUsernameErrorText(error.msg);
+          if (error.param === 'password') setPasswordErrorText(error.msg);
+          if (error.param === 'confirmPassword') setConfirmErrorText(error.msg);
+        });
+        setLoading(false);
       });
   };
   return (
     <>
-      <Box component="form" onSubmit={handleSubmit}>
+      <Box component="form" onSubmit={handleSubmit} noValidate>
         <TextField
           fullWidth
           id="username"
@@ -37,6 +71,9 @@ export const Register = () => {
           margin="normal"
           required
           onChange={(event) => setUsername(event.target.value)}
+          helperText={usernameErrorText}
+          error={usernameErrorText !== ''}
+          disabled={loading}
         />
         <TextField
           fullWidth
@@ -47,6 +84,9 @@ export const Register = () => {
           type="password"
           required
           onChange={(event) => setPassword(event.target.value)}
+          helperText={passwordErrorText}
+          error={passwordErrorText !== ''}
+          disabled={loading}
         />
         <TextField
           fullWidth
@@ -57,12 +97,15 @@ export const Register = () => {
           type="password"
           required
           onChange={(event) => setConfirmPassword(event.target.value)}
+          helperText={confirmErrorText}
+          error={confirmErrorText !== ''}
+          disabled={loading}
         />
         <LoadingButton
           sx={{ marginTop: 3, marginBottom: 2 }}
           fullWidth
           type="submit"
-          loading={false}
+          loading={loading}
           color="primary"
           variant="outlined"
         >
