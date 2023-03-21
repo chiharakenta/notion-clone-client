@@ -30,6 +30,8 @@ jobs:
         run: npm install
       - name: npm run build
         run: npm run build
+        env:
+          VITE_BASE_URL: 'https://notion-clone-server-yqyb.onrender.com/api/v1'
       - name: cp ./dist/index.html ./dist/404.html
         run: cp ./dist/index.html ./dist/404.html
       - name: Upload artifact
