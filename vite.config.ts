@@ -5,7 +5,8 @@ import react from '@vitejs/plugin-react-swc';
 export default defineConfig({
   base: '/notion-clone-client/',
   server: {
-    open: true
+    open: true,
+    port: 3000
   },
   plugins: [
     react({

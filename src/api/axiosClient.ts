@@ -1,5 +1,6 @@
 import axios, { InternalAxiosRequestConfig } from 'axios';
 
+// Fix: 開発用と本番用で分けられるように修正
 const BASE_URL = 'http://localhost:5000/api/v1';
 
 const getToken = () => localStorage.getItem('token');
@@ -11,7 +12,7 @@ export const axiosClient = axios.create({
 // APIを叩く前に前処理を行う
 axiosClient.interceptors.request.use(async (config) => {
   config.headers['Content-Type'] = 'application/json';
-  config.headers.Authorization = getToken();
+  config.headers.Authorization = `Bearer ${getToken()}`;
   return config;
 });
 

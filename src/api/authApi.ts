@@ -1,6 +1,7 @@
-import { RegisterParams } from '../types/api.type';
+import { RegisterApi } from '../types/api.type';
 import { axiosClient } from './axiosClient';
 
 export const authApi = {
-  register: (params: RegisterParams) => axiosClient.post('auth/register', params)
+  register: (params: RegisterApi.Params) =>
+    axiosClient.post<RegisterApi.Response.Success>('auth/register', params)
 };
