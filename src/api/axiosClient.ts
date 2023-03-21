@@ -4,7 +4,7 @@ const BASE_URL = 'http://localhost:5000/api/v1';
 
 const getToken = () => localStorage.getItem('token');
 
-const axiosClient = axios.create({
+export const axiosClient = axios.create({
   baseURL: BASE_URL
 });
 
