@@ -1,18 +1,24 @@
 import { Box, Button, TextField } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FormEventHandler, useState } from 'react';
 import { authApi } from '../../api/authApi';
 import { RegisterApi } from '../../types/api.type';
 
 export const Register = () => {
+  const navigate = useNavigate();
+
+  // フォーム入力値
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  // エラーメッセージ
   const [usernameErrorText, setUsernameErrorText] = useState('');
   const [passwordErrorText, setPasswordErrorText] = useState('');
   const [confirmErrorText, setConfirmErrorText] = useState('');
 
+  // API通信中かどうか
   const [loading, setLoading] = useState(false);
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
@@ -46,10 +52,11 @@ export const Register = () => {
     authApi
       .register({ username, password, confirmPassword })
       .then((res) => {
+        setLoading(false);
         // Memo: ローカルストレージへのトークン保存は脆弱性があるので、要修正
         console.log('新規登録に成功しました。');
         localStorage.setItem('token', res.data.token);
-        setLoading(false);
+        navigate('/');
       })
       .catch((error: RegisterApi.Response.Error) => {
         error.data.errors.forEach((error) => {
