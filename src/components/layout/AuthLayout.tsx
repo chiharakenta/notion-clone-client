@@ -2,8 +2,10 @@ import { SerializedStyles } from '@emotion/react';
 import { css, Interpolation } from '@emotion/react';
 import { Box } from '@mui/material';
 import { Container, SxProps } from '@mui/system';
-import { Outlet } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 import notionLogo from '../../assets/images/notion-logo.png';
+import { authUtils } from '../../utils/authUtils';
 
 export const AuthLayout = () => {
   const styles: { box: SxProps; img: SerializedStyles } = {
@@ -19,6 +21,16 @@ export const AuthLayout = () => {
       marginBottom: 3
     })
   };
+
+  const navigate = useNavigate();
+  // ページ遷移の度に、JWTトークンを持っているかどうか確認する。
+  useEffect(() => {
+    (async () => {
+      const isAuthenticated = await authUtils.isAuthenticated();
+      if (isAuthenticated) navigate('/');
+    })();
+  }, [navigate]);
+
   return (
     <div>
       <Container component="main" maxWidth="xs">

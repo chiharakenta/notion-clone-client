@@ -41,3 +41,16 @@ export namespace LoginApi {
     };
   }
 }
+
+export namespace VerifyTokenApi {
+  export namespace Response {
+    export type Success = {
+      user: UserType & {
+        id: number;
+      };
+    };
+    export type Error = {
+      data: '権限がありません。';
+    };
+  }
+}
