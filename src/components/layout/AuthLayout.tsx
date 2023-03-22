@@ -2,12 +2,12 @@ import { SerializedStyles } from '@emotion/react';
 import { css, Interpolation } from '@emotion/react';
 import { Box } from '@mui/material';
 import { Container, SxProps } from '@mui/system';
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import notionLogo from '../../assets/images/notion-logo.png';
 import { authUtils } from '../../utils/authUtils';
 
-export const AuthLayout = () => {
+export const AuthLayout: FC = () => {
   const styles: { box: SxProps; img: SerializedStyles } = {
     box: {
       marginTop: 6,
