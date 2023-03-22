@@ -25,3 +25,19 @@ export namespace RegisterApi {
     };
   }
 }
+export namespace LoginApi {
+  export type Params = UserType;
+  export namespace Response {
+    export type Success = {
+      user: UserType & {
+        id: number;
+      };
+      token: string;
+    };
+    export type Error = {
+      data: {
+        errors: Array<ErrorMessage>;
+      };
+    };
+  }
+}

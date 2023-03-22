@@ -1,11 +1,11 @@
 import { Box, Button, TextField } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { Link, useNavigate } from 'react-router-dom';
-import { FormEventHandler, useState } from 'react';
+import { FC, FormEventHandler, useState } from 'react';
 import { authApi } from '../../api/authApi';
 import { RegisterApi } from '../../types/api.type';
 
-export const Register = () => {
+export const Register: FC = () => {
   const navigate = useNavigate();
 
   // フォーム入力値
