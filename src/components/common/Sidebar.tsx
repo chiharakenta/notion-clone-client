@@ -1,11 +1,15 @@
 import { AddBoxOutlined, LogoutOutlined } from '@mui/icons-material';
 import { Box, Drawer, IconButton, List, ListItemButton, Typography } from '@mui/material';
 import { FC } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { assets } from '../../assets';
+import { RootState } from '../../redux/store';
 
 export const Sidebar: FC = () => {
   const navigate = useNavigate();
+  const user = useSelector((state: RootState) => state.user.value);
+
   const logout = () => {
     localStorage.removeItem('token');
     navigate('/login');
@@ -30,7 +34,7 @@ export const Sidebar: FC = () => {
             }}
           >
             <Typography variant="body2" fontWeight={700}>
-              chiharakenta
+              {user && user.username}
             </Typography>
             <IconButton onClick={logout}>
               <LogoutOutlined />
