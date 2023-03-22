@@ -1,8 +1,16 @@
 import { AddBoxOutlined, LogoutOutlined } from '@mui/icons-material';
 import { Box, Drawer, IconButton, List, ListItemButton, Typography } from '@mui/material';
 import { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { assets } from '../../assets';
 
 export const Sidebar: FC = () => {
+  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
+
   return (
     <Drawer
       container={window.document.body}
@@ -10,7 +18,7 @@ export const Sidebar: FC = () => {
       open={true}
       sx={{ width: 250, height: '100vh' }}
     >
-      <List sx={{ width: 250, height: '100vh' }}>
+      <List sx={{ width: 250, height: '100vh', backgroundColor: assets.colors.secondary }}>
         <ListItemButton>
           <Box
             sx={{
@@ -24,7 +32,7 @@ export const Sidebar: FC = () => {
             <Typography variant="body2" fontWeight={700}>
               chiharakenta
             </Typography>
-            <IconButton>
+            <IconButton onClick={logout}>
               <LogoutOutlined />
             </IconButton>
           </Box>
