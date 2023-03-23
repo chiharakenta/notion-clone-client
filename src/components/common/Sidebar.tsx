@@ -1,8 +1,9 @@
 import { AddBoxOutlined, LogoutOutlined } from '@mui/icons-material';
 import { Box, Drawer, IconButton, List, ListItemButton, Typography } from '@mui/material';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { memoApi } from '../../api/memoApi';
 import { assets } from '../../assets';
 import { RootState } from '../../redux/store';
 
@@ -14,6 +15,18 @@ export const Sidebar: FC = () => {
     localStorage.removeItem('token');
     navigate('/login');
   };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const { memos } = (await memoApi.getAll()).data;
+        console.log(memos);
+      } catch (error) {
+        console.error(error);
+        alert(error);
+      }
+    })();
+  }, []);
 
   return (
     <Drawer

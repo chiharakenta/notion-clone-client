@@ -57,9 +57,19 @@ export namespace VerifyTokenApi {
 }
 
 export namespace MemoApi {
-  export namespace Response {
-    export type Success = {
-      memo: MemoModel;
-    };
+  export namespace GetAll {
+    export namespace Response {
+      export type Success = {
+        memos: Array<MemoModel>;
+      };
+    }
+  }
+
+  export namespace Create {
+    export namespace Response {
+      export type Success = {
+        memo: MemoModel;
+      };
+    }
   }
 }
