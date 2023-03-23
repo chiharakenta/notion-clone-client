@@ -2,7 +2,7 @@ import { AddBoxOutlined, LogoutOutlined } from '@mui/icons-material';
 import { Box, Drawer, IconButton, List, ListItemButton, Typography } from '@mui/material';
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { assets } from '../../assets';
 import { RootState } from '../../redux/store';
 
@@ -72,6 +72,15 @@ export const Sidebar: FC = () => {
               <AddBoxOutlined fontSize="small" />
             </IconButton>
           </Box>
+        </ListItemButton>
+        <ListItemButton sx={{ pl: 2.5 }} component={Link} to="/memo/1234">
+          <Typography>📝無題</Typography>
+        </ListItemButton>
+        <ListItemButton sx={{ pl: 2.5 }} component={Link} to="/memo/1234">
+          <Typography>📝無題</Typography>
+        </ListItemButton>
+        <ListItemButton sx={{ pl: 2.5 }} component={Link} to="/memo/1234">
+          <Typography>📝無題</Typography>
         </ListItemButton>
       </List>
     </Drawer>
