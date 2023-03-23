@@ -1,4 +1,4 @@
-import { MemoModel } from './memo.type';
+import { MemoType } from './memo.type';
 import { UserType } from './user.type';
 
 export type ErrorMessage = {
@@ -60,7 +60,7 @@ export namespace MemoApi {
   export namespace GetAll {
     export namespace Response {
       export type Success = {
-        memos: Array<MemoModel>;
+        memos: Array<MemoType>;
       };
     }
   }
@@ -68,7 +68,7 @@ export namespace MemoApi {
   export namespace Create {
     export namespace Response {
       export type Success = {
-        memo: MemoModel;
+        memo: MemoType;
       };
     }
   }

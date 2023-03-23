@@ -1,8 +1,8 @@
 import { AddBoxOutlined, LogoutOutlined } from '@mui/icons-material';
 import { Box, Drawer, IconButton, List, ListItemButton, Typography } from '@mui/material';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { memoApi } from '../../api/memoApi';
 import { assets } from '../../assets';
 import { setMemos } from '../../redux/features/memosSlice';
@@ -13,6 +13,9 @@ export const Sidebar: FC = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user.value);
   const memos = useSelector((state: RootState) => state.memos.value);
+
+  const { memoId } = useParams();
+  const [activeMemoIndex, setActiveMemoIndex] = useState(0);
 
   const logout = () => {
     localStorage.removeItem('token');
@@ -30,6 +33,11 @@ export const Sidebar: FC = () => {
       }
     })();
   }, []);
+
+  useEffect(() => {
+    if (!memoId) return;
+    setActiveMemoIndex(memos.findIndex((memo) => memo.id === parseInt(memoId)));
+  }, [navigate]);
 
   return (
     <Drawer
@@ -89,8 +97,14 @@ export const Sidebar: FC = () => {
             </IconButton>
           </Box>
         </ListItemButton>
-        {memos.map((memo) => (
-          <ListItemButton key={memo.id} sx={{ pl: 2.5 }} component={Link} to={`/memo/${memo.id}`}>
+        {memos.map((memo, index) => (
+          <ListItemButton
+            key={memo.id}
+            sx={{ pl: 2.5 }}
+            component={Link}
+            to={`/memo/${memo.id}`}
+            selected={index === activeMemoIndex}
+          >
             <Typography>
               {memo.icon}
               {memo.title}

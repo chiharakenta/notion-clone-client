@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { MemoModel } from '../../types/memo.type';
+import { MemoType } from '../../types/memo.type';
 
-const initialState: { value: Array<MemoModel> } = {
+const initialState: { value: Array<MemoType> } = {
   value: []
 };
 
