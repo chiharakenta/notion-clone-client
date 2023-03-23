@@ -1,3 +1,4 @@
+import { MemoModel } from './memo.type';
 import { UserType } from './user.type';
 
 export type ErrorMessage = {
@@ -51,6 +52,14 @@ export namespace VerifyTokenApi {
     };
     export type Error = {
       data: '権限がありません。';
+    };
+  }
+}
+
+export namespace MemoApi {
+  export namespace Response {
+    export type Success = {
+      memo: MemoModel;
     };
   }
 }
