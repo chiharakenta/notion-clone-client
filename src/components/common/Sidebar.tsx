@@ -1,15 +1,18 @@
 import { AddBoxOutlined, LogoutOutlined } from '@mui/icons-material';
 import { Box, Drawer, IconButton, List, ListItemButton, Typography } from '@mui/material';
 import { FC, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { memoApi } from '../../api/memoApi';
 import { assets } from '../../assets';
+import { setMemos } from '../../redux/features/memosSlice';
 import { RootState } from '../../redux/store';
 
 export const Sidebar: FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user.value);
+  const memos = useSelector((state: RootState) => state.memos.value);
 
   const logout = () => {
     localStorage.removeItem('token');
@@ -20,7 +23,7 @@ export const Sidebar: FC = () => {
     (async () => {
       try {
         const { memos } = (await memoApi.getAll()).data;
-        console.log(memos);
+        dispatch(setMemos(memos));
       } catch (error) {
         console.error(error);
         alert(error);
@@ -86,15 +89,14 @@ export const Sidebar: FC = () => {
             </IconButton>
           </Box>
         </ListItemButton>
-        <ListItemButton sx={{ pl: 2.5 }} component={Link} to="/memo/1234">
-          <Typography>📝無題</Typography>
-        </ListItemButton>
-        <ListItemButton sx={{ pl: 2.5 }} component={Link} to="/memo/1234">
-          <Typography>📝無題</Typography>
-        </ListItemButton>
-        <ListItemButton sx={{ pl: 2.5 }} component={Link} to="/memo/1234">
-          <Typography>📝無題</Typography>
-        </ListItemButton>
+        {memos.map((memo) => (
+          <ListItemButton key={memo.id} sx={{ pl: 2.5 }} component={Link} to={`/memo/${memo.id}`}>
+            <Typography>
+              {memo.icon}
+              {memo.title}
+            </Typography>
+          </ListItemButton>
+        ))}
       </List>
     </Drawer>
   );
