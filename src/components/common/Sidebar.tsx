@@ -39,6 +39,16 @@ export const Sidebar: FC = () => {
     setActiveMemoIndex(memos.findIndex((memo) => memo.id === parseInt(memoId)));
   }, [navigate]);
 
+  const addMemo = async () => {
+    try {
+      const newMemo = (await memoApi.create()).data.memo;
+      dispatch(setMemos([...memos, newMemo]));
+      navigate(`/memo/${newMemo.id}`);
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   return (
     <Drawer
       container={window.document.body}
@@ -93,7 +103,7 @@ export const Sidebar: FC = () => {
               プライベート
             </Typography>
             <IconButton>
-              <AddBoxOutlined fontSize="small" />
+              <AddBoxOutlined fontSize="small" onClick={addMemo} />
             </IconButton>
           </Box>
         </ListItemButton>
