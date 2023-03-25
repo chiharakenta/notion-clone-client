@@ -65,6 +65,14 @@ export namespace MemoApi {
     }
   }
 
+  export namespace GetOne {
+    export namespace Response {
+      export type Success = {
+        memo: MemoType;
+      };
+    }
+  }
+
   export namespace Create {
     export namespace Response {
       export type Success = {
