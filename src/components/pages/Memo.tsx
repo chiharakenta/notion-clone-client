@@ -3,6 +3,7 @@ import { Box, IconButton, TextField } from '@mui/material';
 import { ChangeEventHandler, FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { memoApi } from '../../api/memoApi';
+import { MemoType } from '../../types/memo.type';
 
 export const Memo: FC = () => {
   const { memoId } = useParams();
@@ -54,6 +55,15 @@ export const Memo: FC = () => {
     setTimer(newTimer);
   };
 
+  const deleteMemo = async () => {
+    try {
+      if (!memoId) return;
+      await memoApi.delete(memoId);
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   return (
     <>
       <Box
@@ -67,7 +77,7 @@ export const Memo: FC = () => {
           <StarBorderOutlined />
         </IconButton>
         <IconButton color="error">
-          <DeleteOutlined />
+          <DeleteOutlined onClick={deleteMemo} />
         </IconButton>
       </Box>
       <Box sx={{ padding: '10px 50px' }}>

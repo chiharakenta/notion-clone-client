@@ -94,4 +94,10 @@ export namespace MemoApi {
       };
     }
   }
+
+  export namespace Delete {
+    export namespace Response {
+      export type Success = string;
+    }
+  }
 }
