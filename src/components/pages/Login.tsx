@@ -95,7 +95,7 @@ export const Login: FC = () => {
         </LoadingButton>
       </Box>
       <Button component={Link} to="/register">
-        アカウントを持っていませんか？ログイン
+        アカウントを持っていませんか？新規登録
       </Button>
     </>
   );
