@@ -11,7 +11,6 @@ export const Home: FC = () => {
     try {
       setLoading(true);
       const { memo } = (await memoApi.create()).data;
-      console.log(memo);
       navigate(`/memo/${memo.id}`);
     } catch (error) {
       console.log(error);
