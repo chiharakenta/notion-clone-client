@@ -40,6 +40,15 @@ export const Memo: FC = () => {
       try {
         if (!memoId) return;
         await memoApi.update(memoId, { title: newTitle });
+        const newMemos = memos.map((memo) =>
+          memo.id === parseInt(memoId)
+            ? {
+                ...memo,
+                title: newTitle
+              }
+            : memo
+        );
+        dispatch(setMemos(newMemos));
       } catch (error) {
         alert(error);
       }
