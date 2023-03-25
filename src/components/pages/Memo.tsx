@@ -1,27 +1,58 @@
 import { DeleteOutlined, StarBorderOutlined } from '@mui/icons-material';
 import { Box, IconButton, TextField } from '@mui/material';
-import { FC, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { ChangeEventHandler, FC, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { memoApi } from '../../api/memoApi';
-import { MemoType } from '../../types/memo.type';
 
 export const Memo: FC = () => {
   const { memoId } = useParams();
-  const [memoTitle, setMemoTitle] = useState('');
-  const [memoDescription, setMemoDescription] = useState('');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
 
   useEffect(() => {
     (async () => {
       if (!memoId) return;
       try {
         const { title, description } = (await memoApi.getOne(memoId)).data.memo;
-        setMemoTitle(title);
-        setMemoDescription(description);
+        setTitle(title);
+        setDescription(description);
       } catch (error) {
         alert(error);
       }
     })();
   }, [memoId]);
+
+  const [timer, setTimer] = useState<NodeJS.Timeout>();
+  const timeout = 500;
+  const updateTitle: ChangeEventHandler<HTMLInputElement> = async (event) => {
+    clearTimeout(timer);
+    const newTitle = event.target.value;
+    setTitle(newTitle);
+    const newTimer = setTimeout(async () => {
+      try {
+        if (!memoId) return;
+        await memoApi.update(memoId, { title: newTitle });
+      } catch (error) {
+        alert(error);
+      }
+    }, timeout);
+    setTimer(newTimer);
+  };
+
+  const updateDescription: ChangeEventHandler<HTMLInputElement> = async (event) => {
+    clearTimeout(timer);
+    const newDescription = event.target.value;
+    setDescription(newDescription);
+    const newTimer = setTimeout(async () => {
+      try {
+        if (!memoId) return;
+        await memoApi.update(memoId, { description: newDescription });
+      } catch (error) {
+        alert(error);
+      }
+    }, timeout);
+    setTimer(newTimer);
+  };
 
   return (
     <>
@@ -41,8 +72,8 @@ export const Memo: FC = () => {
       </Box>
       <Box sx={{ padding: '10px 50px' }}>
         <TextField
-          value={memoTitle}
-          onChange={(event) => setMemoTitle(event.target.value)}
+          value={title}
+          onChange={updateTitle}
           placeholder="無題"
           variant="outlined"
           fullWidth
@@ -53,8 +84,8 @@ export const Memo: FC = () => {
           }}
         />
         <TextField
-          value={memoDescription}
-          onChange={(event) => setMemoDescription(event.target.value)}
+          value={description}
+          onChange={updateDescription}
           placeholder="追加"
           variant="outlined"
           fullWidth

@@ -80,4 +80,18 @@ export namespace MemoApi {
       };
     }
   }
+
+  export namespace Update {
+    export namespace Request {
+      export type Params = {
+        title?: MemoType['title'];
+        description?: MemoType['description'];
+      };
+    }
+    export namespace Response {
+      export type Success = {
+        memo: MemoType;
+      };
+    }
+  }
 }
