@@ -70,8 +70,8 @@ export const Sidebar: FC = () => {
             <Typography variant="body2" fontWeight={700}>
               {user && user.username}
             </Typography>
-            <IconButton>
-              <LogoutOutlined onClick={logout} />
+            <IconButton onClick={logout}>
+              <LogoutOutlined />
             </IconButton>
           </Box>
         </ListItemButton>

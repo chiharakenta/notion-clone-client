@@ -86,6 +86,7 @@ export namespace MemoApi {
       export type Params = {
         title?: MemoType['title'];
         description?: MemoType['description'];
+        icon?: MemoType['icon'];
       };
     }
     export namespace Response {
