@@ -28,7 +28,7 @@ export const Memo: FC = () => {
         setDescription(description);
         setIcon(icon);
       } catch (error) {
-        alert(error);
+        console.log(error);
       }
     };
     getMemo();
@@ -54,7 +54,7 @@ export const Memo: FC = () => {
         );
         dispatch(setMemos(newMemos));
       } catch (error) {
-        alert(error);
+        console.log(error);
       }
     }, timeout);
     setTimer(newTimer);
@@ -69,7 +69,7 @@ export const Memo: FC = () => {
         if (!memoId) return;
         await memoApi.update(memoId, { description: newDescription });
       } catch (error) {
-        alert(error);
+        console.log(error);
       }
     }, timeout);
     setTimer(newTimer);
@@ -87,7 +87,7 @@ export const Memo: FC = () => {
         navigate(`/memo/${newMemos[0].id}`);
       }
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
 
@@ -106,7 +106,7 @@ export const Memo: FC = () => {
     try {
       await memoApi.update(memoId, { icon });
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
 

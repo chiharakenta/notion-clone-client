@@ -28,8 +28,7 @@ export const Sidebar: FC = () => {
         const { memos } = (await memoApi.getAll()).data;
         dispatch(setMemos(memos));
       } catch (error) {
-        console.error(error);
-        alert(error);
+        console.log(error);
       }
     })();
   }, []);
@@ -45,7 +44,7 @@ export const Sidebar: FC = () => {
       dispatch(setMemos([...memos, newMemo]));
       navigate(`/memo/${newMemo.id}`);
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
 

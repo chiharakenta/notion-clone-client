@@ -7,6 +7,7 @@ import { memoApi } from '../../api/memoApi';
 export const Home: FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
   const createMemo = async () => {
     try {
       setLoading(true);
@@ -14,11 +15,11 @@ export const Home: FC = () => {
       navigate(`/memo/${memo.id}`);
     } catch (error) {
       console.log(error);
-      alert(error);
     } finally {
       setLoading(false);
     }
   };
+
   return (
     <Box sx={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <LoadingButton variant="outlined" onClick={createMemo} loading={loading}>
