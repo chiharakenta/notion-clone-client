@@ -42,7 +42,7 @@ export const Memo: FC = () => {
     setTitle(newTitle);
     const newTimer = setTimeout(async () => {
       try {
-        if (!memoId) return;
+        if (!memoId || !memos) return;
         await memoApi.update(memoId, { title: newTitle });
         const newMemos = memos.map((memo) =>
           memo.id === parseInt(memoId)
@@ -77,7 +77,7 @@ export const Memo: FC = () => {
 
   const deleteMemo = async () => {
     try {
-      if (!memoId) return;
+      if (!memoId || !memos) return;
       await memoApi.delete(memoId);
       const newMemos = memos.filter((memo) => memo.id !== parseInt(memoId));
       dispatch(setMemos(newMemos));
@@ -92,7 +92,7 @@ export const Memo: FC = () => {
   };
 
   const onChangeIcon = async (icon: MemoType['icon']) => {
-    if (!memoId) return;
+    if (!memoId || !memos) return;
     const newMemos = memos.map((memo) =>
       memo.id === parseInt(memoId)
         ? {

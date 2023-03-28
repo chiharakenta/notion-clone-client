@@ -24,14 +24,15 @@ export const Sidebar: FC = () => {
   };
 
   useEffect(() => {
-    if (!memoId) return;
+    if (!memoId || !memos) return;
     setActiveMemoIndex(memos.findIndex((memo) => memo.id === parseInt(memoId)));
   }, [navigate]);
 
   const addMemo = async () => {
     try {
       const newMemo = (await memoApi.create()).data.memo;
-      dispatch(setMemos([...memos, newMemo]));
+      const newMemos = memos ? [...memos] : [];
+      dispatch(setMemos([...newMemos, newMemo]));
       navigate(`/memo/${newMemo.id}`);
     } catch (error) {
       console.log(error);
@@ -96,7 +97,7 @@ export const Sidebar: FC = () => {
             </IconButton>
           </Box>
         </ListItemButton>
-        {memos.map((memo, index) => (
+        {memos?.map((memo, index) => (
           <ListItemButton
             key={memo.id}
             sx={{ pl: 2.5 }}
