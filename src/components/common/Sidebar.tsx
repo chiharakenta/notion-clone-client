@@ -23,17 +23,6 @@ export const Sidebar: FC = () => {
   };
 
   useEffect(() => {
-    (async () => {
-      try {
-        const { memos } = (await memoApi.getAll()).data;
-        dispatch(setMemos(memos));
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
-
-  useEffect(() => {
     if (!memoId) return;
     setActiveMemoIndex(memos.findIndex((memo) => memo.id === parseInt(memoId)));
   }, [navigate]);
