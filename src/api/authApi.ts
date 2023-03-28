@@ -6,5 +6,6 @@ export const authApi = {
     axiosClient.post<RegisterApi.Response.Success>('auth/register', params),
   login: (params: LoginApi.Params) =>
     axiosClient.post<LoginApi.Response.Success>('auth/login', params),
+  logout: () => axiosClient.delete('/auth/logout'),
   verifyToken: () => axiosClient.post<VerifyTokenApi.Response.Success>('auth/verify-token')
 };

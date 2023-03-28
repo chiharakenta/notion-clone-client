@@ -53,9 +53,7 @@ export const Register: FC = () => {
       .register({ username, password, confirmPassword })
       .then((res) => {
         setLoading(false);
-        // Memo: ローカルストレージへのトークン保存は脆弱性があるので、要修正
         console.log('新規登録に成功しました。');
-        localStorage.setItem('token', res.data.token);
         navigate('/');
       })
       .catch((error: RegisterApi.Response.Error) => {

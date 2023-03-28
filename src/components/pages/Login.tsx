@@ -44,7 +44,6 @@ export const Login: FC = () => {
         setLoading(false);
         // Memo: ローカルストレージへのトークン保存は脆弱性があるので、要修正
         console.log('ログインに成功しました。');
-        localStorage.setItem('token', res.data.token);
         navigate('/');
       })
       .catch((error: LoginApi.Response.Error) => {

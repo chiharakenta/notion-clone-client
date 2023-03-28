@@ -3,6 +3,7 @@ import { Box, Drawer, IconButton, List, ListItemButton, Typography } from '@mui/
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { authApi } from '../../api/authApi';
 import { memoApi } from '../../api/memoApi';
 import { assets } from '../../assets';
 import { setMemos } from '../../redux/features/memosSlice';
@@ -17,8 +18,8 @@ export const Sidebar: FC = () => {
   const { memoId } = useParams();
   const [activeMemoIndex, setActiveMemoIndex] = useState(0);
 
-  const logout = () => {
-    localStorage.removeItem('token');
+  const logout = async () => {
+    await authApi.logout();
     navigate('/login');
   };
 
