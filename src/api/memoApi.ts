@@ -7,5 +7,7 @@ export const memoApi = {
   create: () => axiosClient.post<MemoApi.Create.Response.Success>('memo'),
   update: (memoId: string, params: MemoApi.Update.Request.Params) =>
     axiosClient.put<MemoApi.Update.Response.Success>(`memo/${memoId}`, params),
+  updatePosition: (params: MemoApi.UpdatePosition.Request.Params) =>
+    axiosClient.put<MemoApi.UpdatePosition.Response.Success>('/memo/position', params),
   delete: (memoId: string) => axiosClient.delete<MemoApi.Delete.Response.Success>(`memo/${memoId}`)
 };

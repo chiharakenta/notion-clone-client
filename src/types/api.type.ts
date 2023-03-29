@@ -96,6 +96,28 @@ export namespace MemoApi {
     }
   }
 
+  export namespace UpdatePosition {
+    export namespace Request {
+      export type Params = {
+        memos: [
+          {
+            id: MemoType['id'];
+            position: MemoType['position'];
+          },
+          {
+            id: MemoType['id'];
+            position: MemoType['position'];
+          }
+        ];
+      };
+    }
+    export namespace Response {
+      export type Success = {
+        memos: Array<MemoType>;
+      };
+    }
+  }
+
   export namespace Delete {
     export namespace Response {
       export type Success = string;
