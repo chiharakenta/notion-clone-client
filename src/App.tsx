@@ -10,6 +10,7 @@ import { blue } from '@mui/material/colors';
 import { AppLayout } from './components/layout/AppLayout';
 import { Home } from './components/pages/Home';
 import { Memo } from './components/pages/Memo';
+import { BASE_NAME } from './constants/env';
 
 function App() {
   const theme = createTheme({
@@ -21,7 +22,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <BrowserRouter basename="/notion-clone-client/">
+      <BrowserRouter basename={BASE_NAME}>
         <Routes>
           <Route path="/" element={<AuthLayout />}>
             <Route path="login" element={<Login />} />
