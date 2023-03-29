@@ -6,7 +6,8 @@ export const authUtils = {
     try {
       const res = await authApi.verifyToken();
       return res.data.user;
-    } catch (_error) {
+    } catch (error) {
+      console.log(error);
       return false;
     }
   }
