@@ -6,7 +6,7 @@
   "homepage": "https://chiharakenta.github.io/notion-clone-client",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build --base=./",
+    "build": "tsc && vite build",
     "deploy": "gh-pages -d dist",
     "preview": "vite preview"
   },
