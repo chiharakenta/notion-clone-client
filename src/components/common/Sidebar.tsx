@@ -50,6 +50,7 @@ export const Sidebar: FC = () => {
     newMemos.sort((a, b) => a.position - b.position);
     return newMemos;
   };
+
   const reorderServerMemos = async (
     memos: Array<MemoType>,
     startIndex: number,
@@ -80,8 +81,10 @@ export const Sidebar: FC = () => {
 
   const handleDragEnd: OnDragEndResponder = async (result) => {
     if (!memos || !result.destination) return;
+    if (result.source.index === result.destination.index) return;
     const clientMemos = reorderClientMemos(memos, result.source.index, result.destination.index);
     dispatch(setMemos(clientMemos));
+    setActiveMemoIndex(result.destination.index);
 
     const serverMemos = await reorderServerMemos(
       memos,
